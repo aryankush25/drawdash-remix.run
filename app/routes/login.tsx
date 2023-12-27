@@ -1,10 +1,6 @@
-import { json, type MetaFunction, ActionFunctionArgs } from "@remix-run/node";
+import { type MetaFunction, ActionFunctionArgs } from "@remix-run/node";
 import { db } from "../utils/db.server";
-import {
-  useLoaderData,
-  useSearchParams,
-  useActionData,
-} from "@remix-run/react";
+import { useSearchParams, useActionData } from "@remix-run/react";
 import { badRequest } from "../utils/request.server";
 import { login } from "../utils/session.server";
 
@@ -28,11 +24,13 @@ function validatePassword(password: string) {
 }
 
 function validateUrl(url: string) {
-  const urls = ["/jokes", "/", "https://remix.run"];
+  const urls = ["/"];
+
   if (urls.includes(url)) {
     return url;
   }
-  return "/jokes";
+
+  return "/";
 }
 
 export const action = async ({ request }: ActionFunctionArgs) => {
@@ -82,7 +80,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
       // login to get the user
       // if there's no user, return the fields and a formError
-      // if there is a user, create their session and redirect to /jokes
+      // if there is a user, create their session and redirect to /
       return badRequest({
         fieldErrors: null,
         fields,
@@ -102,7 +100,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
         });
       }
       // create the user
-      // create their session and redirect to /jokes
+      // create their session and redirect to /
       return badRequest({
         fieldErrors: null,
         fields,
@@ -119,18 +117,9 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   }
 };
 
-export const loader = async () => {
-  return json({
-    jokeListItems: [],
-  });
-};
-
 export default function Login() {
-  const data = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   const [searchParams] = useSearchParams();
-
-  console.log(data);
 
   return (
     <div>
