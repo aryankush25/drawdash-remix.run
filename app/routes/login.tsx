@@ -5,7 +5,7 @@ import { useLoaderData, useSearchParams } from "@remix-run/react";
 export const meta: MetaFunction = () => {
   return [
     { title: "Drawdash" },
-    { name: "description", content: "Welcome to Remix!" },
+    { name: "description", content: "Welcome to Drawdash!" },
   ];
 };
 
