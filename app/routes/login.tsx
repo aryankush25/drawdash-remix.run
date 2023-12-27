@@ -40,9 +40,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const loginType = form.get("loginType");
   const password = form.get("password");
   const username = form.get("username");
-  const redirectTo = validateUrl(
-    (form.get("redirectTo") as string) || "/jokes"
-  );
+  const redirectTo = validateUrl((form.get("redirectTo") as string) || "/");
+
   if (
     typeof loginType !== "string" ||
     typeof password !== "string" ||
@@ -60,6 +59,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     password: validatePassword(password),
     username: validateUsername(username),
   };
+
   if (Object.values(fieldErrors).some(Boolean)) {
     return badRequest({
       fieldErrors,
@@ -89,6 +89,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
         formError: "Not implemented",
       });
     }
+
     case "register": {
       const userExists = await db.user.findFirst({
         where: { username },
@@ -120,7 +121,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
 export const loader = async () => {
   return json({
-    jokeListItems: await db.joke.findMany(),
+    jokeListItems: [],
   });
 };
 
