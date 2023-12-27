@@ -6,6 +6,7 @@ import {
   useActionData,
 } from "@remix-run/react";
 import { badRequest } from "../utils/request.server";
+import { login } from "../utils/session.server";
 
 export const meta: MetaFunction = () => {
   return [
@@ -69,6 +70,16 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
   switch (loginType) {
     case "login": {
+      const user = await login({ username, password });
+      console.log({ user });
+      if (!user) {
+        return badRequest({
+          fieldErrors: null,
+          fields,
+          formError: "Username/Password combination is incorrect",
+        });
+      }
+
       // login to get the user
       // if there's no user, return the fields and a formError
       // if there is a user, create their session and redirect to /jokes
