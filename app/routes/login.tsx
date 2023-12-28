@@ -2,7 +2,7 @@ import { type MetaFunction, ActionFunctionArgs } from "@remix-run/node";
 import { db } from "../utils/db.server";
 import { useSearchParams, useActionData } from "@remix-run/react";
 import { badRequest } from "../utils/request.server";
-import { login, createUserSession } from "../utils/session.server";
+import { login, createUserSession, register } from "../utils/session.server";
 
 export const meta: MetaFunction = () => {
   return [
@@ -92,13 +92,15 @@ export const action = async ({ request }: ActionFunctionArgs) => {
           formError: `User with username ${username} already exists`,
         });
       }
-      // create the user
-      // create their session and redirect to /
-      return badRequest({
-        fieldErrors: null,
-        fields,
-        formError: "Not implemented",
-      });
+      const user = await register({ username, password });
+      if (!user) {
+        return badRequest({
+          fieldErrors: null,
+          fields,
+          formError: "Something went wrong trying to create a new user.",
+        });
+      }
+      return createUserSession(user.id, redirectTo);
     }
     default: {
       return badRequest({
