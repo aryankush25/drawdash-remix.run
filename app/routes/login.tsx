@@ -15,7 +15,7 @@ import {
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Drawdash" },
+    { title: "Login | Drawdash" },
     { name: "description", content: "Welcome to Drawdash!" },
   ];
 };
