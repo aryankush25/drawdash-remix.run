@@ -1,8 +1,17 @@
-import { type MetaFunction, ActionFunctionArgs } from "@remix-run/node";
+import {
+  type MetaFunction,
+  ActionFunctionArgs,
+  LoaderFunction,
+} from "@remix-run/node";
 import { db } from "../utils/db.server";
 import { useSearchParams, useActionData } from "@remix-run/react";
 import { badRequest } from "../utils/request.server";
-import { login, createUserSession, register } from "../utils/session.server";
+import {
+  login,
+  createUserSession,
+  register,
+  notRequireUserId,
+} from "../utils/session.server";
 
 export const meta: MetaFunction = () => {
   return [
@@ -112,6 +121,9 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     }
   }
 };
+
+export const loader: LoaderFunction = async ({ request }) =>
+  notRequireUserId(request);
 
 export default function Login() {
   const actionData = useActionData<typeof action>();
