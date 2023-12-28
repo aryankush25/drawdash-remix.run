@@ -85,6 +85,8 @@ export async function notRequireUserId(request: Request) {
   if (userId && typeof userId === "string") {
     throw redirect(`/`);
   }
+
+  return null;
 }
 
 export async function getUser(request: Request) {
