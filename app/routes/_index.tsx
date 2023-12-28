@@ -4,8 +4,8 @@ import { Link, useLoaderData } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "Home | Drawdash" },
+    { name: "description", content: "Home of Drawdash!" },
   ];
 };
 
@@ -28,15 +28,20 @@ export default function Index() {
     <div>
       {data.user ? (
         <div className="user-info">
-          <span>{`Hi ${data.user.username}`}</span>
+          <span className="text-xl font-bold">{`Hi ${data.user.username}`}</span>
           <form action="/logout" method="post">
-            <button type="submit" className="button">
+            <button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
               Logout
             </button>
           </form>
         </div>
       ) : (
-        <Link to="/login">Login</Link>
+        <Link to="/login" className="text-blue-500 hover:text-blue-700">
+          Login
+        </Link>
       )}
     </div>
   );
