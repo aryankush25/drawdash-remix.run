@@ -122,18 +122,20 @@ export default function Login() {
   const [searchParams] = useSearchParams();
 
   return (
-    <div>
-      <div data-light="">
-        <h1>Login</h1>
+    <div className="flex justify-center items-center h-screen">
+      <div className="w-96 p-8 bg-white rounded shadow">
+        <h1 className="text-2xl font-bold mb-4">Login</h1>
         <form method="post">
           <input
             type="hidden"
             name="redirectTo"
             value={searchParams.get("redirectTo") ?? undefined}
           />
-          <fieldset>
-            <legend>Login or Register?</legend>
-            <label>
+          <fieldset className="mb-4">
+            <legend className="text-lg font-semibold">
+              Login or Register?
+            </legend>
+            <label className="block mt-2">
               <input
                 type="radio"
                 name="loginType"
@@ -142,21 +144,25 @@ export default function Login() {
                   !actionData?.fields?.loginType ||
                   actionData?.fields?.loginType === "login"
                 }
-              />{" "}
+                className="mr-2"
+              />
               Login
             </label>
-            <label>
+            <label className="block mt-2">
               <input
                 type="radio"
                 name="loginType"
                 value="register"
                 defaultChecked={actionData?.fields?.loginType === "register"}
-              />{" "}
+                className="mr-2"
+              />
               Register
             </label>
           </fieldset>
-          <div>
-            <label htmlFor="username-input">Username</label>
+          <div className="mb-4">
+            <label htmlFor="username-input" className="block">
+              Username
+            </label>
             <input
               type="text"
               id="username-input"
@@ -166,10 +172,11 @@ export default function Login() {
               aria-errormessage={
                 actionData?.fieldErrors?.username ? "username-error" : undefined
               }
+              className="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring focus:border-blue-500"
             />
             {actionData?.fieldErrors?.username ? (
               <p
-                className="form-validation-error"
+                className="text-red-500 text-sm mt-1"
                 role="alert"
                 id="username-error"
               >
@@ -177,8 +184,10 @@ export default function Login() {
               </p>
             ) : null}
           </div>
-          <div>
-            <label htmlFor="password-input">Password</label>
+          <div className="mb-4">
+            <label htmlFor="password-input" className="block">
+              Password
+            </label>
             <input
               id="password-input"
               name="password"
@@ -188,10 +197,11 @@ export default function Login() {
               aria-errormessage={
                 actionData?.fieldErrors?.password ? "password-error" : undefined
               }
+              className="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring focus:border-blue-500"
             />
             {actionData?.fieldErrors?.password ? (
               <p
-                className="form-validation-error"
+                className="text-red-500 text-sm mt-1"
                 role="alert"
                 id="password-error"
               >
@@ -201,13 +211,18 @@ export default function Login() {
           </div>
           <div id="form-error-message">
             {actionData?.formError ? (
-              <p className="form-validation-error" role="alert">
+              <p className="text-red-500 text-sm" role="alert">
                 {actionData.formError}
               </p>
             ) : null}
           </div>
 
-          <button type="submit">Submit</button>
+          <button
+            type="submit"
+            className="bg-blue-500 text-white py-2 px-4 rounded mt-4 hover:bg-blue-600"
+          >
+            Submit
+          </button>
         </form>
       </div>
     </div>
