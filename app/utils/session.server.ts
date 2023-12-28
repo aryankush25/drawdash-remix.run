@@ -78,6 +78,15 @@ export async function requireUserId(
   return userId;
 }
 
+export async function notRequireUserId(request: Request) {
+  const session = await getUserSession(request);
+  const userId = session.get("userId");
+
+  if (userId && typeof userId === "string") {
+    throw redirect(`/`);
+  }
+}
+
 export async function getUser(request: Request) {
   const userId = await getUserId(request);
   if (typeof userId !== "string") {
