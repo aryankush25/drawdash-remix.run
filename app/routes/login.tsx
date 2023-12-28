@@ -102,6 +102,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       }
       return createUserSession(user.id, redirectTo);
     }
+
     default: {
       return badRequest({
         fieldErrors: null,
