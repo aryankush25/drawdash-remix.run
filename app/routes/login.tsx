@@ -164,7 +164,6 @@ export default function Login() {
               id="username-input"
               name="username"
               defaultValue={actionData?.fields?.username}
-              aria-invalid={Boolean(actionData?.fieldErrors?.username)}
               aria-errormessage={
                 actionData?.fieldErrors?.username ? "username-error" : undefined
               }
@@ -189,7 +188,6 @@ export default function Login() {
               name="password"
               type="password"
               defaultValue={actionData?.fields?.password}
-              aria-invalid={Boolean(actionData?.fieldErrors?.password)}
               aria-errormessage={
                 actionData?.fieldErrors?.password ? "password-error" : undefined
               }
