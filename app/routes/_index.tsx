@@ -10,12 +10,13 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
-  console.log("#### request", request);
-
   const userId = await requireUserId(request);
   const user = await getUser(request);
 
-  return json({ userId, user });
+  return json({
+    userId,
+    user,
+  });
 };
 
 export default function Index() {
